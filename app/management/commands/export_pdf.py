@@ -30,7 +30,8 @@ class Command(BaseCommand):
             'margin-left': '20mm',
             'margin-right': '20mm',
             'margin-bottom': '20mm',
-            'margin-top': '20mm'
+            'margin-top': '20mm',
+            "javascript-delay": 5000
         }
 
         html_str = render_to_string('index.html')
