@@ -9,13 +9,16 @@
   <style type="text/css">
     body {
       font-family: 'Raleway';
+      font-size: 25px;
     }
     .picture {
       border-radius: 50%;
-      height: 100px; 
+    }
+    .color-grey{
+      color: #8a8a8a;
     }
     .section-title{
-      font-size: 12px;
+      font-size: 20px;
       color: #8a8a8a;
     }
 
@@ -27,6 +30,7 @@
       width: 1100px;
       height: 200px;
     }
+
   </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -45,17 +49,18 @@
     <div class="row">
       <div class="d-flex align-items-center col-12">
         <div class="text-center">
-          <img class="picture" src="{{ photo_url }}"></img>
+          <img height="200" class="picture" src="{{ photo_url }}"></img>
         </div>
         <div style="margin-left: 3em">
-          <div>
-            <span>{{ degree }}</span>
+          <div>            
             <span><b>{{ combined_name }}</b></span>
+            <span class="color-grey">| {{ degree }}</span>
           </div>
           <div>
-            <span>{{ affiliation.institution__phone }}|</span>
+            <span>{{ affiliation.institution__phone }}</span>
+            <span class='color-grey'> | </span>
             <span>
-              <a href="mailto:{{ affiliation.institituion__email }}" style="word-break: break-all;">{{ affiliation.institituion__email }}</a>
+              <a href="mailto:{{ affiliation.institution__email }}" style="word-break: break-all;">{{ affiliation.institution__email }}</a>
             </span>
           </div>
         </div>
@@ -83,7 +88,7 @@
       </div>
     </div>
     <div class="mt-3 pt-3">
-      <hr style="border-top: 3px solid #a4c8e6"/>
+      <hr style="border-top: 1px solid #a4c8e6"/>
     </div>
 
     <div id="mapid"></div>
@@ -94,6 +99,11 @@
         <div class="mt-1">Last Update: {{ profile_last_updated_on }} </div>
       </div>
     </div>
+
+    <div class="mt-3 pt-3">
+      <hr style="border-top: 1px solid #a4c8e6"/>
+    </div>
+
 
     <div class="row" style="margin-top: 2em">      
       <div class="col-12">
@@ -171,12 +181,10 @@
       </div>
     </div>
 
-    <div class="row d-none" style="margin-top: 2em">
-      <div class="col-12 d-flex justify-content-center align-items-center" 
-        style="height: 200px; background-color: green;">
-        Please fill here with the chart
-      </div>
+    <div class="mt-3 pt-3">
+      <hr style="border-top: 1px solid #a4c8e6"/>
     </div>
+
 
     <div class="row"  style="margin-top: 3em">
       <div class="col-12">
