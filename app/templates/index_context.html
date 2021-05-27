@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <style type="text/css">
+    body {
+      font-family: 'Raleway';
+    }
+    .picture {
+      border-radius: 50%;
+      height: 100px; 
+    }
+    .section-title{
+      font-size: 12px;
+      color: #8a8a8a;
+    }
+
+    table td {
+      padding: 1em;
+      border-bottom: 1px solid #a4c8e6
+    }
+    #mapid{
+      width: 1100px;
+      height: 200px;
+    }
+  </style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script>L_NO_TOUCH = true;</script>
+ <script>L_DISABLE_3D = true;</script>
+
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+  </head>
+<body>
+  <div class="container" style="padding: 3em 0 3em 0">
+    <div class="row">
+      <div class="d-flex align-items-center col-12">
+        <div class="text-center">
+          <img class="picture" src="https://www.asklepios.com/.imaging/mte/asklepios/carouselTeaserItem_592/profiles/3529/photo/img_3529.jpg"></img>
+        </div>
+        <div style="margin-left: 3em">
+          <div>
+            <span>{{ degree }}</span>
+            <span><b>{{ combined_name }}</b></span>
+          </div>
+          <div>
+            <span>{{ affiliation.institution__phone }}|</span>
+            <span>
+              <a href="mailto:{{ affiliation.institituion__email }}" style="word-break: break-all;">{{ affiliation.institituion__email }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 3em">
+      <div class="col-4">
+          <div class="section-title">POSITION</div>
+          <div>{{ affiliation.position__name }}</div>
+          <div class="section-title mt-2">CAREER STAGE</div>
+          <div>{{ career_stage }}</div>
+      </div>
+      <div class="col-4">
+        <div class="section-title">AFFILIATION</div>
+        <div>
+          {{ affiliation.institution__combined_name }}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="section-title">PRIVATE CONTACT</div>
+        <div>
+          <a href="mailto:{{ email }}" style="word-break: break-all;">{{ email }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 pt-3">
+      <hr style="border-top: 3px solid #a4c8e6"/>
+    </div>
+
+    <div id="mapid"></div>
+
+    <div class="row" style="margin-top: 1em">      
+      <div class="col-12">
+        <b>Profile Snapshot</b>
+        <div class="mt-1">Last Update: {{ profile_last_updated_on }} </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 2em">      
+      <div class="col-12">
+        <div class="section-title">SPECIALTIES</div>
+        <div class="mt-1">{{ specialties }} </div>        
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 1em">      
+      <div class="col-12">
+        <div class="section-title">FOCUS AREA</div>
+        <div class="mt-1">
+          {{ focus_area_research_interests }}
+        </div>        
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 3em">      
+      <div class="col-6">
+        <b>Publications</b>
+        <div class="d-flex">
+          <div class="mt-3 w-50">
+            <div class="section-title">FIRST AUTHOR</div>
+            <div class="mt-1">6 {{ number_linked_publications_first_author }}</div>        
+          </div>
+          <div class="mt-3 w-50">
+            <div class="section-title">TOTAL</div>
+            <div class="mt-1">6 {{ number_linked_publications }}</div>        
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <b>Coauthors</b>
+        <div class="d-flex">
+          <div class="mt-3 w-50">
+            <div class="section-title">SAME PA</div>
+            <div class="mt-1">6 {{ number_co_authors_same_primary_affiliation }} </div>        
+          </div>
+          <div class="mt-3 w-50">
+            <div class="section-title">TOTAL</div>
+            <div class="mt-1">6 {{ number_co_authors }} </div>        
+          </div>
+        </div>       
+      </div>
+    </div>
+
+    <div class="row mt-3">      
+      <div class="col-6">
+        <b>Events</b>
+        <div class="d-flex">
+          <div class="mt-3 w-50">
+            <div class="section-title">CHAIRPERSON</div>
+            <div class="mt-1">6 {{ number_linked_events_position_chairperson }}</div>        
+          </div>
+          <div class="mt-3 w-50">
+            <div class="section-title">TOTAL</div>
+            <div class="mt-1">6 {{ number_linked_events }}</div>        
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <b>Clinical Trials</b>
+        <div class="d-flex">
+          <div class="mt-3 w-50">
+            <div class="section-title">RECRUITING</div>
+            <div class="mt-1">6 {{ number_linked_clinical_trials_recruiting }}</div>        
+          </div>
+          <div class="mt-3 w-50">
+            <div class="section-title">TOTAL</div>
+            <div class="mt-1">6  {{ number_linked_clinical_trials }}</div>        
+          </div>
+        </div>       
+      </div>
+    </div>
+
+    <div class="row d-none" style="margin-top: 2em">
+      <div class="col-12 d-flex justify-content-center align-items-center" 
+        style="height: 200px; background-color: green;">
+        Please fill here with the chart
+      </div>
+    </div>
+
+    <div class="row"  style="margin-top: 3em">
+      <div class="col-12">
+        <table class="w-100">
+          <thead>
+            <tr style="border-bottom: 3px solid #a4c8e6">
+              <td>Type</td>
+              <td>Year</td>
+              <td>Company</td>
+              <td>Amount</td>
+              <td>Currency</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cooperations_per_company %}
+            <tr>
+              <td>Travel And Lodging {{ item.nature_of_payment }}</td>
+              <td>2015 {{ item.year }}</td>
+              <td>Merck KGaA {{ item.institution__parent_name}}</td>
+              <td>13869.42 {{ item.total_amount }}</td>
+              <td>EUR {{ currency }}</td>
+            </tr>
+            {% enfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function(event) {       
+      var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic3RvcnJlbGxhcyIsImEiOiJjaWp6bHQ5Y3kwMDU4dmNtMHgzb2NhNmU5In0.M3jJSPh7KUT0QDSd7Bn3Rg', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: 'your.mapbox.access.token'
+      }).addTo(mymap);
+
+    L.marker([51.5, -0.09]).addTo(mymap)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
+        setTimeout(function () { mymap.invalidateSize() }, 800);
+
+    })
+
+  </script>
+
+</body> 
+</html>
