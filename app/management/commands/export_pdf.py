@@ -90,7 +90,7 @@ class Command(BaseCommand):
             'margin-bottom': '30mm',
             'margin-top': '30mm',
             "javascript-delay": 5000,   
-            "footer-html": f"file://{path}/footer.html"
+            "header-html": f"file://{path}/footer.html"
         }
         html_str = render_to_string('medical_expert_pdf_export.html', context)
 
