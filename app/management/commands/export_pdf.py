@@ -1,4 +1,4 @@
-import io
+import io, os
 # Django Imports
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -26,6 +26,9 @@ class Command(BaseCommand):
         # img.save('image.png')
 
 
+        path = os.path.dirname(__file__)
+
+
 
         context = {
             "oid": '123',
@@ -45,7 +48,7 @@ class Command(BaseCommand):
             "cv": "https://www.asklepios.com/details/arztprofil~prId=3529~",
             "email": "j.roether@asklepios.com",
             "phone": "123646",
-            "number_linked_publications_position_first_author": 11,
+            "number_linked_publications_first_author": 11,
             "number_linked_publications": 12,
             "number_co_authors_same_primary_affiliation": 12,
             "number_co_authors": 14,
@@ -84,10 +87,13 @@ class Command(BaseCommand):
             'encoding': 'UTF-8',        
             'margin-left': '20mm',
             'margin-right': '20mm',
-            'margin-bottom': '20mm',
-            'margin-top': '20mm',
-            "javascript-delay": 5000,        
+            'margin-bottom': '30mm',
+            'margin-top': '30mm',
+            "javascript-delay": 5000,   
+            "footer-html": f"file://{path}/footer.html"
         }
         html_str = render_to_string('medical_expert_pdf_export.html', context)
-        pdfkit.from_string(html_str, 'out.pdf', options=options)
+
+        config = pdfkit.configuration(wkhtmltopdf='/home/storrellas/workspace/inspire_pdf/wkhtmltopdf/usr/local/bin/wkhtmltopdf')
+        pdfkit.from_string(html_str, 'out.pdf', options=options, configuration=config)
 

@@ -30,7 +30,12 @@
       width: 1100px;
       height: 200px;
     }
-
+    .row {
+      display: -webkit-box; /* wkhtmltopdf uses this one */
+      display: flex;
+      -webkit-box-pack: center; /* wkhtmltopdf uses this one */
+      justify-content: center;
+    }
   </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -47,22 +52,26 @@
 <body>
   <div class="container" style="padding: 3em 0 3em 0">
     <div class="row">
-      <div class="d-flex align-items-center col-12">
+      <div class="col-3">
         <div class="text-center">
           <img height="200" class="picture" src="{{ photo_url }}"></img>
         </div>
-        <div style="margin-left: 3em">
-          <div>            
-            <span><b>{{ combined_name }}</b></span>
-            <span class="color-grey">| {{ degree }}</span>
-          </div>
-          <div>
-            <span>{{ affiliation.institution__phone }}</span>
-            <span class='color-grey'> | </span>
-            <span>
-              <a href="mailto:{{ affiliation.institution__email }}" style="word-break: break-all;">{{ affiliation.institution__email }}</a>
-            </span>
-          </div>
+      </div>
+      <div class="col-9"">
+        <div style="margin-left: 3em; padding-top: 50px; padding-bottom: 50px;">
+          
+            <div>            
+              <span><b>{{ combined_name }}</b></span>
+              <span class="color-grey">| {{ degree }}</span>
+            </div>
+            <div>
+              <span>{{ affiliation.institution__phone }}</span>
+              <span class='color-grey'> | </span>
+              <span>
+                <a href="mailto:{{ affiliation.institution__email }}" style="word-break: break-all;">{{ affiliation.institution__email }}</a>
+              </span>
+            </div>
+          
         </div>
       </div>
     </div>

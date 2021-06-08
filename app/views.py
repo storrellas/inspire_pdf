@@ -25,7 +25,7 @@ class MedicalExpertPDFExportView(TemplateView):
             "cv": "https://www.asklepios.com/details/arztprofil~prId=3529~",
             "email": "j.roether@asklepios.com",
             "phone": "123646",
-            "number_linked_publications_position_first_author": 11,
+            "number_linked_publications_first_author": 11,
             "number_linked_publications": 12,
             "number_co_authors_same_primary_affiliation": 12,
             "number_co_authors": 14,
