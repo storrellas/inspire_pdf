@@ -87,10 +87,11 @@ class Command(BaseCommand):
             'encoding': 'UTF-8',        
             'margin-left': '20mm',
             'margin-right': '20mm',
-            'margin-bottom': '30mm',
+            'margin-bottom': '20mm',
             'margin-top': '30mm',
             "javascript-delay": 5000,   
-            "header-html": f"file://{path}/footer.html"
+            "header-html": f"file://{path}/header.html",
+            "footer-html": f"file://{path}/footer.html"
         }
         html_str = render_to_string('medical_expert_pdf_export.html', context)
 
