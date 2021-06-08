@@ -2,7 +2,9 @@
 <html>
 <body>
   <div style="text-align: right; padding: 10px 0 0 0">
-    Tell me
+    <span>Created: </span>
+    <span id="created_at"></span>
+    <span> | Page: </span>
     <span id="pdfkit_page_current"></span>
     <span> / </span>
     <span id="pdfkit_page_count"></span>
@@ -22,6 +24,15 @@
 
   document.addEventListener("DOMContentLoaded", function(event) {       
     getPdfInfo()
+
+    // Created At Logic
+    const todayDate = new Date();
+    // var dd = String(todayDate.getDate()).padStart(2, '0');
+    // var mm = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = todayDate.getFullYear();
+    //const today = mm + '/' + dd + '/' + yyyy;
+    document.getElementById('created_at').textContent = todayDate.toISOString().slice(0, 10);
+
   })
 
 </script>
